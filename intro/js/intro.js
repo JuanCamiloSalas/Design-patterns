@@ -29,7 +29,59 @@ operation((a,b)=>{
 // foreach
 const names = ["juan", "sara", "pepita"];
 names.forEach((name) => console.log(name[0].toUpperCase() + name.slice(1)));
-names.sort();
+const namesSorted = names.toSorted();
+console.log(namesSorted);
 console.log(names);
 
 // map
+const namesUpper = names.map((name) => name.toUpperCase());
+console.log(namesUpper);
+
+// reduce
+const numbers = [5,4,7,8,9];
+const total = numbers.reduce((acc, number) => acc + number, 1);
+
+console.log(total);
+
+// PROGRAMACIÓN ORIENTADA A OBJETOS
+// Clase
+class Drink{
+    constructor(name){
+        this.name = name;
+    }
+
+    info(){
+        return `Esta bebida es ${this.name}`;
+    }
+}
+
+// Funcional
+function Drink2(name) {
+    this.name = name;
+    this.info = function () {
+        return `Esta bebida es ${this.name}`;
+    }
+}
+
+const drink = new Drink("agua");
+console.log(drink.info());
+
+const drink2 = new Drink2("agua");
+console.log(drink.info());
+
+// Herencia
+class Beer extends Drink{
+    constructor(name, alcohol){
+        //Debo responder por la prop name ya que el padre ka necesita en su constructor
+        super(name); 
+        this.alcohol = alcohol;
+    }
+
+    // El método info no es obligatorio declararlo; sin embargo, si lo declaramos en esta clase podríamos hacer que el método info sea diferente para esta clase en específico o también, agregarle una funcionalidad extra como lo es en este caso con el uso de la palabra reservada super. 
+    info(){
+        return `${super.info()}, con ${this.alcohol}% de alcohol.`
+    }
+}
+
+const beer = new Beer("erginder", 8.5);
+console.log(beer.info());
