@@ -1,6 +1,12 @@
 {
     "conventionalCommits.scopes": [
         "intro",
-        "singleton"
+        "singleton",
+        "strategy",
+        "observer",
+        "decorator",
+        "builder",
+        "state",
+        "bridge",
     ]
 }
