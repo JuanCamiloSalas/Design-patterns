@@ -28,7 +28,6 @@ class DiscountSaleStrategy{
         this.discount = discount;
     }
 
-
     calculate (amount) {
         return amount + (amount * this.tax) - this.discount;
     }
@@ -44,18 +43,18 @@ class ForeignSaleStrategy{
     }
 }
 
-const regularSale = new RegularSaleStrategy(0.19);
-const discountSale = new DiscountSaleStrategy(0.19, 2000);
-const foreignSale = new ForeignSaleStrategy();
+// const regularSale = new RegularSaleStrategy(0.19);
+// const discountSale = new DiscountSaleStrategy(0.19, 2000);
+// const foreignSale = new ForeignSaleStrategy();
 
-const sale = new SaleContext(regularSale);
-console.log(sale.calculate(20000));
+// const sale = new SaleContext(regularSale);
+// console.log(sale.calculate(20000));
 
-sale.setStrategy(discountSale);
-console.log(sale.calculate(20000));
+// sale.setStrategy(discountSale);
+// console.log(sale.calculate(20000));
 
-sale.setStrategy(foreignSale);
-console.log(sale.calculate(20000));
+// sale.setStrategy(foreignSale);
+// console.log(sale.calculate(20000));
 
 
 /*************************** CASO APLICADO ***************************/
@@ -85,10 +84,77 @@ const data = [
 class InfoContext{
     constructor (strategy, data, element) {
         this.setStrategy(strategy);
-        
+        this.data = data;
+        this.element = element;
     }
 
     setStrategy (strategy) {
         this.strategy = strategy;
     }
+
+    show() {
+        this.strategy.show(this.data, this.element);
+    }
 }
+
+class ListStrategy{
+    
+    show(data, element) {
+        element.innerHTML = data.reduce((acc, beer) => {
+            return acc + `
+            <div>
+                <h2>${beer.name}</h2>
+                <p>${beer.country}</p>
+            </div>
+            <hr>
+            `;
+        }, "");
+    }
+}
+
+class ListStrategyWithDetails{
+    
+    show(data, element) {
+        element.innerHTML = data.reduce((acc, beer) => {
+            return acc + `
+            <div>
+                <h2>${beer.name}</h2>
+                <p>${beer.country}</p>
+                <p>${beer.info}</p>
+            </div>
+            <hr>
+            `;
+        }, "");
+    }
+}
+
+class ListStrategyWithImages{
+    
+    show(data, element) {
+        element.innerHTML = data.reduce((acc, beer) => {
+            return acc + `
+            <div>
+                <h2>${beer.name}</h2>
+                <p>${beer.country}</p>
+                <img width="10%" src="${beer.img}">
+            </div>
+            <hr>
+            `;
+        }, "");
+    }
+}
+
+const strategies = [
+    new ListStrategy(),
+    new ListStrategyWithDetails(),
+    new ListStrategyWithImages(),
+]
+
+const info = new InfoContext(new ListStrategy(), data, content);
+info.show();
+
+slcOptions.addEventListener("change", (event) => {
+    const op = event.target.value;
+    info.setStrategy(strategies[op]);
+    info.show();
+});
