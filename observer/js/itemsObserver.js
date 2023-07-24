@@ -22,7 +22,7 @@ class Subject {
 class ItemsSubject extends Subject {
 
     constructor(){
-        super();
+        super(); // Hará lo del constructor del padre
 
         this.data = [];
     }
@@ -42,9 +42,7 @@ class HtmlElementObserver{
 
     refresh(data){
         this.element.innerHTML = data.reduce((acc, cur) => {
-            return acc + `
-                <p>${cur}</p>
-            `
+            return acc + `<p>${cur}</p>`
         });
     }
 }
