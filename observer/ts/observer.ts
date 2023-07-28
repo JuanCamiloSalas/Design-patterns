@@ -59,8 +59,8 @@ const obs2 = new Observer<number>((n)=>{
     console.log(`Hola desde el observer 2 ${n}`);    
 });
 
-subject.suscribe(obs1);
-subject.suscribe(obs2);
+subject.subscribe(obs1);
+subject.subscribe(obs2);
 subject.notify(1.2);
 subject.notify(30);
 
@@ -75,6 +75,6 @@ const obs2String = new Observer<string>((s) => {
     console.log(s.toLowerCase());
 });
 
-subjectString.suscribe(obs1String);
-subjectString.suscribe(obs2String);
+subjectString.subscribe(obs1String);
+subjectString.subscribe(obs2String);
 subjectString.notify("Juan Salas");
